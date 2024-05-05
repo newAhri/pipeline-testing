@@ -51,7 +51,9 @@ jobs:
           path: 'python-greetings-dev'
 
       - name: Stop existing service
-        run: pm2 delete greetings-app-dev & EXIT /B 0
+        run: |
+          pm2 delete greetings-app-dev
+          pm2 set env:errorlevel 0
 
       - name: Start service
         run: |
