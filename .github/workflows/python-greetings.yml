@@ -3,9 +3,9 @@ name: Python Pipeline
 on:
   push:
     branches: [ "main" ]
-  pull-requests:
+  pull_requests:
     branches: [ "main" ]
-	
+
     workflow_dispatch:
 
 jobs:
