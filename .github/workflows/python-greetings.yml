@@ -47,8 +47,8 @@ jobs:
       - name: Checkout code using v3.5.2
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/python-greetings'
-          path: 'python-greetings-dev'
+          repository: mtararujs/python-greetings
+          path: python-greetings-dev
 
       - name: Stop existing service
         run: |
@@ -58,7 +58,7 @@ jobs:
       - name: Start service
         run: |
           cd python-greetings-dev
-          pm2 start app.py --name greetings-app-dev --cwd ./python-greetings -- -- 7001
+          pm2 start app.py --name greetings-app-dev -- -- 7001
 
 
 
