@@ -51,12 +51,7 @@ jobs:
           path: 'python-greetings-dev'
 
       - name: Stop existing service
-        run: |
-          try {
-            pm2 delete greetings-app-dev
-          } catch {
-            Write-Host "Failed to delete greetings-app-dev, but continuing with the workflow."
-          }
+        run: pm2 delete greetings-app-dev & EXIT /B 0
 
       - name: Start service
         run: |
