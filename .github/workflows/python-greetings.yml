@@ -87,6 +87,7 @@ jobs:
 
       - name: Run greetings tests
         run: |
+          cd course-js-api-framework
           npm run greetings greetings_dev
 
 
