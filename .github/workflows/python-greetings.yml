@@ -5,26 +5,24 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   install-pip-deps:
     name: Install
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
+      - name: Deploy to Dev
+        run: echo "Installing pip libraries.."
+        
       - name: Checkout code using v3.5.2
         uses: actions/checkout@v3.5.2
       
       - name: Clone python-greetings repository
-        uses: actions/checkout@v3.5.2
         with:
-          repository: mtararujs/python-greetings
-          path: python-greetings
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings'
       
       - name: Install dependencies
         run: |
@@ -34,10 +32,13 @@ jobs:
 
   deploy-to-dev:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [install-pip-deps]
 
     steps:
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
       
       - name: Deploy to Dev
         run: echo "Deploying to Dev environment.."
@@ -45,7 +46,7 @@ jobs:
 
   tests-on-dev:
     name: Tests dev
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-dev]
 
     steps:
@@ -56,7 +57,7 @@ jobs:
 
   deploy-to-staging:
     name: Deploy stg
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [tests-on-dev]
 
     steps:
@@ -67,7 +68,7 @@ jobs:
 
   tests-on-staging:
     name: Tests stg
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-staging]
 
     steps:
@@ -78,7 +79,7 @@ jobs:
 
   deploy-to-preprod:
     name: Deploy preprod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [tests-on-staging]
 
     steps:
@@ -89,7 +90,7 @@ jobs:
 
   tests-on-preprod:
     name: Tests preprod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-preprod]
 
     steps:
@@ -100,7 +101,7 @@ jobs:
 
   deploy-to-prod:
     name: Deploy prod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [tests-on-preprod]
 
     steps:
@@ -111,7 +112,7 @@ jobs:
 
   tests-on-prod:
     name: Tests prod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-prod]
 
     steps:
