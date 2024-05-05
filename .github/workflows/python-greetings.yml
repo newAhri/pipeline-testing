@@ -77,8 +77,8 @@ jobs:
       - name: Clone course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/course-js-api-framework'
-          path: 'course-js-api-framework'
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
 
       - name: Install dependencies
         run: |
@@ -111,12 +111,13 @@ jobs:
 
       - name: Stop existing service
         run: |
-          pm2 delete greetings-app-staging || true
+          pm2 delete greetings-app-staging
+          pm2 set env:errorlevel 0
 
       - name: Start service
         run: |
           cd python-greetings-staging
-          pm2 start app.py --name greetings-app-staging -- --port 7002
+          pm2 start app.py --name greetings-app-staging -- -- 7002
 
 
 
@@ -167,15 +168,16 @@ jobs:
         with:
           repository: 'mtararujs/python-greetings'
           path: 'python-greetings-preprod'
-
+          
       - name: Stop existing service
         run: |
-          pm2 delete greetings-app-preprod || true
+          pm2 delete greetings-app-preprod
+          pm2 set env:errorlevel 0
 
       - name: Start service
         run: |
           cd python-greetings-preprod
-          pm2 start app.py --name greetings-app-preprod -- --port 7003
+          pm2 start app.py --name greetings-app-preprod -- -- 7003
 
 
 
@@ -227,13 +229,13 @@ jobs:
 
       - name: Stop existing service
         run: |
-          pm2 delete greetings-app-prod || true
+          pm2 delete greetings-app-prod
+          pm2 set env:errorlevel 0
 
       - name: Start service
         run: |
           cd python-greetings-prod
-          pm2 start app.py --name greetings-app-prod -- --port 7004
-
+          pm2 start app.py --name greetings-app-prod -- -- 7004
 
 
   tests-on-prod:
