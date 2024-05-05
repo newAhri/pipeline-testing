@@ -52,7 +52,11 @@ jobs:
 
       - name: Stop existing service
         run: |
-          pm2 delete greetings-app-dev || true
+          try {
+            pm2 delete greetings-app-dev
+          } catch {
+            Write-Host "Failed to delete greetings-app-dev, but continuing with the workflow."
+          }
 
       - name: Start service
         run: |
