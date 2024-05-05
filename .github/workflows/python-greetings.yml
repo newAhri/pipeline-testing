@@ -58,7 +58,7 @@ jobs:
       - name: Start service
         run: |
           cd python-greetings-dev
-          pm2 start app.py --name greetings-app-dev -- 7001
+          pm2 start app.py --name greetings-app-dev --port 7001
 
 
 
