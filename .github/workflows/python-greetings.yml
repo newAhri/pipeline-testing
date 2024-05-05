@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+
 jobs:
   install-pip-deps:
     name: Install
@@ -37,12 +38,27 @@ jobs:
     needs: [install-pip-deps]
 
     steps:
+      - name: Deploy to Dev
+        run: echo "Deploying to Dev environment.."
 
       - name: Checkout code using v3.5.2
         uses: actions/checkout@v3.5.2
-      
-      - name: Deploy to Dev
-        run: echo "Deploying to Dev environment.."
+        
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings-dev'
+
+      - name: Stop existing service
+        run: |
+          pm2 delete greetings-app-dev || true
+
+      - name: Start service
+        run: |
+          cd python-greetings-dev
+          pm2 start app.py --name greetings-app-dev -- --port 7001
+
 
 
   tests-on-dev:
@@ -51,9 +67,27 @@ jobs:
     needs: [deploy-to-dev]
 
     steps:
-      
       - name: Run tests on Dev
         run: echo "Running tests on Dev environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+
+      - name: Clone course-js-api-framework repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'course-js-api-framework'
+
+      - name: Install dependencies
+        run: |
+          cd course-js-api-framework
+          npm install
+
+      - name: Run greetings tests
+        run: |
+          npm run greetings greetings_dev
+
 
 
   deploy-to-staging:
@@ -62,9 +96,27 @@ jobs:
     needs: [tests-on-dev]
 
     steps:
-      
       - name: Deploy to Staging
         run: echo "Deploying to Staging environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+      
+      - name: Clone python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings-staging'
+
+      - name: Stop existing service
+        run: |
+          pm2 delete greetings-app-staging || true
+
+      - name: Start service
+        run: |
+          cd python-greetings-staging
+          pm2 start app.py --name greetings-app-staging -- --port 7002
+
 
 
   tests-on-staging:
@@ -73,9 +125,28 @@ jobs:
     needs: [deploy-to-staging]
 
     steps:
-      
       - name: Run tests on Staging
         run: echo "Running tests on Staging environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+
+      - name: Clone course-js-api-framework repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'course-js-api-framework'
+
+      - name: Install dependencies
+        run: |
+          cd course-js-api-framework
+          npm install
+
+      - name: Run greetings tests
+        run: |
+          npm run greetings greetings_staging
+
+        
 
 
   deploy-to-preprod:
@@ -84,9 +155,27 @@ jobs:
     needs: [tests-on-staging]
 
     steps:
-      
       - name: Deploy to Preprod
         run: echo "Deploying to Preprod environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+      
+      - name: Clone python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings-preprod'
+
+      - name: Stop existing service
+        run: |
+          pm2 delete greetings-app-preprod || true
+
+      - name: Start service
+        run: |
+          cd python-greetings-preprod
+          pm2 start app.py --name greetings-app-preprod -- --port 7003
+
 
 
   tests-on-preprod:
@@ -95,9 +184,26 @@ jobs:
     needs: [deploy-to-preprod]
 
     steps:
-      
       - name: Run tests on Preprod
         run: echo "Running tests on Preprod environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+
+      - name: Clone course-js-api-framework repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'course-js-api-framework'
+
+      - name: Install dependencies
+        run: |
+          cd course-js-api-framework
+          npm install
+
+      - name: Run greetings tests
+        run: |
+          npm run greetings greetings_preprod
 
 
   deploy-to-prod:
@@ -106,9 +212,27 @@ jobs:
     needs: [tests-on-preprod]
 
     steps:
-      
       - name: Deploy to Prod
         run: echo "Deploying to Prod environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+      
+      - name: Clone python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'python-greetings-prod'
+
+      - name: Stop existing service
+        run: |
+          pm2 delete greetings-app-prod || true
+
+      - name: Start service
+        run: |
+          cd python-greetings-prod
+          pm2 start app.py --name greetings-app-prod -- --port 7004
+
 
 
   tests-on-prod:
@@ -120,3 +244,21 @@ jobs:
       
       - name: Run tests on Prod
         run: echo "Running tests on Prod environment.."
+
+      - name: Checkout code using v3.5.2
+        uses: actions/checkout@v3.5.2
+
+      - name: Clone course-js-api-framework repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'course-js-api-framework'
+
+      - name: Install dependencies
+        run: |
+          cd course-js-api-framework
+          npm install
+
+      - name: Run greetings tests
+        run: |
+          npm run greetings greetings_prod
