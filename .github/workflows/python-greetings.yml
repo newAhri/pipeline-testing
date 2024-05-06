@@ -79,11 +79,15 @@ jobs:
           path: course-js-api-framework
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install mocha --no-save
+          npm install
         working-directory: ./course-js-api-framework
 
       - name: Run greetings tests
-        run: npm run greetings greetings_dev
+        run: |
+          export NODE_ENV=greetings_dev
+          npm run greetings greetings_dev
         working-directory: ./course-js-api-framework
 
 
