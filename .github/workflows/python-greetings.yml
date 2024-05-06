@@ -86,7 +86,7 @@ jobs:
 
       - name: Run greetings tests
         run: |
-          export NODE_ENV=greetings_dev
+          set NODE_ENV=greetings_dev
           npm run greetings greetings_dev
         working-directory: ./course-js-api-framework
 
