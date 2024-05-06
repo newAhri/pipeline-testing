@@ -44,14 +44,14 @@ jobs:
 
       - name: Checkout code using v3.5.2
         uses: actions/checkout@v3.5.2
-        
-      - name: Checkout code using v3.5.2
-        uses: actions/checkout@v3.5.2
         with:
           repository: mtararujs/python-greetings
           ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
           path: python-greetings-dev
-
+          
+      - name: Install dependencies
+        run: pip install -r python-greetings/requirements.txt
+          
       - name: Stop existing service
         run: |
           pm2 delete greetings-app-dev
@@ -61,8 +61,9 @@ jobs:
         run: |
           cd python-greetings-dev
           pm2 start app.py --name greetings-app-dev -- -- 7001
+        working-directory: ./python-greetings
 
-
+        
 
   tests-on-dev:
     name: Tests dev
@@ -73,9 +74,6 @@ jobs:
       - name: Run tests on Dev
         run: echo "Running tests on Dev environment.."
 
-      - name: Checkout code using v3.5.2
-        uses: actions/checkout@v3.5.2
-
       - name: Clone course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
@@ -84,12 +82,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd course-js-api-framework
+          cd C:\actions-runner\_work\pipeline-testing\pipeline-testing\course-js-api-framework
           npm install
 
       - name: Run greetings tests
         run: |
-          cd course-js-api-framework
+          cd C:\actions-runner\_work\pipeline-testing\pipeline-testing\course-js-api-framework
           npm run greetings greetings_dev
 
 
