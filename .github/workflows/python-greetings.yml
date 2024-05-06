@@ -63,7 +63,7 @@ jobs:
         working-directory: ./python-greetings
 
       - name: Check server status
-        run: curl http://localhost:3000
+        run: curl http://localhost:5000
         working-directory: ./python-greetings
 
         
