@@ -50,7 +50,7 @@ jobs:
           path: python-greetings-dev
           
       - name: Install dependencies
-        run: pip install -r python-greetings/requirements.txt
+        run: pip install -r python-greetings-dev/requirements.txt
           
       - name: Stop existing service
         run: |
@@ -61,7 +61,7 @@ jobs:
         run: |
           cd python-greetings-dev
           pm2 start app.py --name greetings-app-dev -- -- 7001
-        working-directory: ./python-greetings
+        working-directory: ./python-greetings-dev
 
         
 
@@ -81,14 +81,12 @@ jobs:
           path: course-js-api-framework
 
       - name: Install dependencies
-        run: |
-          cd C:\actions-runner\_work\pipeline-testing\pipeline-testing\course-js-api-framework
-          npm install
+        run: npm install
+        working-directory: ./course-js-api-framework
 
       - name: Run greetings tests
-        run: |
-          cd C:\actions-runner\_work\pipeline-testing\pipeline-testing\course-js-api-framework
-          npm run greetings greetings_dev
+        run: npm run greetings greetings_dev
+        working-directory: ./course-js-api-framework
 
 
 
