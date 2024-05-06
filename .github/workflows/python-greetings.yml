@@ -47,11 +47,11 @@ jobs:
         with:
           repository: mtararujs/python-greetings
           ref: 4e911440a9886c7c26ccbb4eb55f0bc2a5067b51
-          path: python-greetings-dev
+          path: python-greetings
           fetch-depth: 0
           
       - name: Install dependencies
-        run: pip install -r python-greetings-dev/requirements.txt
+        run: pip install -r python-greetings/requirements.txt
           
       - name: Stop existing service
         run: |
@@ -59,11 +59,11 @@ jobs:
           pm2 set env:errorlevel 0
 
       - name: Start service
-        run: pm2 start app.py --name greetings-app-dev --interpreter python3 -- --port 7001
-        working-directory: ./python-greetings-dev
+        run: pm2 start app.py --name greetings-app-dev --interpreter python3 
+        working-directory: ./python-greetings
 
       - name: Check server status
-        run: curl http://localhost:7001
+        run: curl http://localhost:3000
         working-directory: ./python-greetings
 
         
@@ -113,8 +113,8 @@ jobs:
       - name: Clone python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/python-greetings'
-          path: 'python-greetings-staging'
+          repository: mtararujs/python-greetings
+          path: python-greetings
 
       - name: Stop existing service
         run: |
@@ -123,7 +123,7 @@ jobs:
 
       - name: Start service
         run: |
-          cd python-greetings-staging
+          cd python-greetings
           pm2 start app.py --name greetings-app-staging -- -- 7002
 
 
@@ -143,8 +143,8 @@ jobs:
       - name: Clone course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/course-js-api-framework'
-          path: 'course-js-api-framework'
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
 
       - name: Install dependencies
         run: |
@@ -173,8 +173,8 @@ jobs:
       - name: Clone python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/python-greetings'
-          path: 'python-greetings-preprod'
+          repository: mtararujs/python-greetings
+          path: python-greetings
           
       - name: Stop existing service
         run: |
@@ -183,7 +183,7 @@ jobs:
 
       - name: Start service
         run: |
-          cd python-greetings-preprod
+          cd python-greetings
           pm2 start app.py --name greetings-app-preprod -- -- 7003
 
 
@@ -203,8 +203,8 @@ jobs:
       - name: Clone course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/course-js-api-framework'
-          path: 'course-js-api-framework'
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
 
       - name: Install dependencies
         run: |
@@ -231,8 +231,8 @@ jobs:
       - name: Clone python-greetings repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/python-greetings'
-          path: 'python-greetings-prod'
+          repository: mtararujs/python-greetings
+          path: python-greetings
 
       - name: Stop existing service
         run: |
@@ -241,7 +241,7 @@ jobs:
 
       - name: Start service
         run: |
-          cd python-greetings-prod
+          cd python-greetings
           pm2 start app.py --name greetings-app-prod -- -- 7004
 
 
@@ -261,8 +261,8 @@ jobs:
       - name: Clone course-js-api-framework repository
         uses: actions/checkout@v3.5.2
         with:
-          repository: 'mtararujs/course-js-api-framework'
-          path: 'course-js-api-framework'
+          repository: mtararujs/course-js-api-framework
+          path: course-js-api-framework
 
       - name: Install dependencies
         run: |
