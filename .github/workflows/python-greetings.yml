@@ -59,7 +59,7 @@ jobs:
           pm2 set env:errorlevel 0
 
       - name: Start service
-        run: pm2 start app.py --name greetings-app-dev --interpreter python3 
+        run: pm2 start app.py --name greetings-app-dev
         working-directory: ./python-greetings
 
       - name: Check server status
