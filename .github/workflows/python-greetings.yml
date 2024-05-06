@@ -59,11 +59,11 @@ jobs:
           pm2 set env:errorlevel 0
 
       - name: Start service
-        run: pm2 start app.py --name greetings-app-dev
+        run: pm2 start app.py --name greetings-app-dev --cwd ./python-greetings -- -- 7001
         working-directory: ./python-greetings
 
       - name: Check server status
-        run: curl http://localhost:5000
+        run: curl http://localhost:7001
         working-directory: ./python-greetings
 
         
