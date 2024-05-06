@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3.5.2
         with:
           repository: mtararujs/python-greetings
-          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+          ref: 4e911440a9886c7c26ccbb4eb55f0bc2a5067b51
           path: python-greetings
       
       - name: Install dependencies
@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v3.5.2
         with:
           repository: mtararujs/python-greetings
-          ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
+          ref: 4e911440a9886c7c26ccbb4eb55f0bc2a5067b51
           path: python-greetings-dev
           fetch-depth: 0
           
