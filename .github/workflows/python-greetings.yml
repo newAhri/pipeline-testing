@@ -48,6 +48,7 @@ jobs:
           repository: mtararujs/python-greetings
           ref: '4e911440a9886c7c26ccbb4eb55f0bc2a5067b51'
           path: python-greetings-dev
+          fetch-depth: 0
           
       - name: Install dependencies
         run: pip install -r python-greetings-dev/requirements.txt
@@ -77,6 +78,7 @@ jobs:
         with:
           repository: mtararujs/course-js-api-framework
           path: course-js-api-framework
+          fetch-depth: 0
 
       - name: Install dependencies
         run: |
